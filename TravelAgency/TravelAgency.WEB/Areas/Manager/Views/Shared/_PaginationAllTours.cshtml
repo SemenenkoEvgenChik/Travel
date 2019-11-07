@@ -1,0 +1,123 @@
+﻿@model TravelAgency.BLL.BusinessModels.Pagination.ResponsePaginationTourModel
+@using TravelAgency.BLL.Enums
+<div class="container " id="serchTours">
+    <h5 class="text-center">Фильтр</h5>
+    <div class="row m-0">
+        <div class="col-sm">
+            <input type="number" id="NumberPerson" class="form-control" placeholder="Количество человек" />
+        </div>
+        <div class="col-sm">
+            <input type="number" id="PriceDown" class="form-control" placeholder="Цена от" />
+        </div>
+        <div class="col-sm">
+            <input type="number" id="PriceUp" class="form-control" placeholder="Цена до" />
+        </div>
+        <div class="col-sm">
+            <select id="NumberOfStars" class="form-control">
+                <option value="" selected hidden>Количество &#9733; гостиницы</option>
+                <option value="">Сбросить фильтр</option>
+                <option value="1">3</option>
+                <option value="2">4</option>
+                <option value="3">5</option>
+            </select>
+        </div>
+        <div class="col-sm">
+            <select id="TypeOfRest" class="form-control">
+                <option value="" selected hidden>Выберите тип тура</option>
+                <option value="">Сбросить фильтр</option>
+                <option value="1">Отдых</option>
+                <option value="2">Шопинг</option>
+                <option value="3">Экскурсия</option>
+            </select>
+        </div>
+        <div class="col-sm">
+            <button type="button" class="btn btn-secondary w-auto" onclick="GetAllNewTours()">Применить!</button>
+        </div>
+    </div>
+</div>
+
+<div id="sorting">
+    <h4>Сортировать по: </h4>
+    @{
+        var selectList = EnumHelper.GetSelectList(typeof(SortIndexBLL));
+        var selected = selectList.FirstOrDefault(x => x.Equals(Model.SortIndexBLL));
+        if (selected != null)
+        {
+            selected.Selected = true;
+        }
+    }
+    @Html.DropDownList("SortIndexBLL", selectList, new { @class = "form-control w-auto", id = "sortIndexBLL" })
+</div>
+<div class="card-body text-center">
+    <div class="row">
+        @foreach (var t in Model.Tours)
+        {
+
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">@t.TypeOfTourBLM.Description <input type="button" class="btn btn-secondary" data-toggle="modal" data-target="#ChangeTypeOfTour" value="Изменить" onclick="$('#idTour').val('@t.Id')"> </h4>
+                        <h6 class="card-title">Куда?</h6>
+                        <p> <b>@t.CountriesBLM.NameOfCountry</b>, <b>@t.FlightBLM.WhereToBLM.NameOfCity</b></p>
+                        <p> Гостиница: <b>@t.HotelBLM.NumberOfStars</b> &#9733;</p>
+                        <p class="card-text">Тип тура: <b>@t.TypeOfRestBLM.Description</b> за <b>@t.Price&#36;</b>(цена указана за 1 человека)</p>
+                        <p>Город отправления: <b>@t.FlightBLM.FromWhereBLM.NameOfCity</b> Транспорт: <b>@t.FlightBLM.MeansOfTransportBLM.TypeOfTransport</b></p>
+                        <p>Дата вылета: <b>@t.DepartureDate</b> Дата прибытия: <b>@t.ArrivalDate</b></p>
+                        <p class="card-text">Питание: <b>@t.FoodBLM.TypeOfFood</b></p>
+                        <p class="card-text">Тур расчитан максимум на: <b>@t.NumberOfPersons</b> человек</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<nav aria-label="PageNavigation">
+    <ul class="pagination">
+        @if (Model.PageNumber > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" id="Prev" href="javascript:Prev()" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        }
+
+        <li class="page-item"><a class="page-link">@Model.PageNumber / @Model.TotalPages</a></li>
+
+        @if (Model.PageNumber < Model.TotalPages)
+        {
+            <li class="page-item">
+                <a class="page-link" href="javascript:Next()" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        }
+    </ul>
+</nav>
+
+<div class="modal fade" id="ChangeTypeOfTour" tabindex="-1" role="dialog" aria-labelledby="ChangeTypeOfTour" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content justify-content-center align-items-center">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="ChangeTypeOfTour">Изменение типа путевки</h5>
+                <button type="button" class="close w-auto" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="idTour" hidden />
+                <select id="typeOfTour" class="form-control">
+                    <option value="1">Горящий</option>
+                    <option value="2">Стандарт</option>
+                </select>
+
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-primary w-auto" value="Изменить" onclick="ChangeTypeOfTour()">
+                <button type="button" class="btn btn-secondary w-auto" id="dataDismiss" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>

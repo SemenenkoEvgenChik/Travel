@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+<div>
+    <div class="video-container">
+        <div class="video-container-text">
+            <label>СЧАСТЬЕ — ЭТО ПУТИШЕСТВИЕ! БУДЬ СЧАСЛИВЫМ! ПУТИШЕСТВУЙ С НАМИ!</label>
+            <span>TRAVEL AGENCY TURTLE</span>
+        </div>
+        <video class="video-container-video" type="video/mp4" src="~/content/video/home.mp4" style="width:100%; height: auto;" loop="loop" autoplay muted></video>
+    </div>
+    <div id="spinnerAllActiveTour">
+        <h1>Загрузка...</h1>
+
+    </div>
+
+    <div id="partialPaginationAllActiveTour">
+
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/ClientScripts/Home.js"></script>
+    <script src="~/Scripts/ClientScripts/AllActiveTours.js"></script>
+}
+
+
+

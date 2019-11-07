@@ -1,0 +1,22 @@
+﻿@using TravelAgency.BLL.Enums
+@{
+    ViewBag.Title = "Index";
+}
+<div>
+    <p>Выберите какие туры отображать</p>
+    @Html.DropDownList("StatusTourBLL",
+      EnumHelper.GetSelectList(typeof(StatusTourBLL)),
+      new { @class = "form-control w-auto", id = "statusTourEnum" })
+</div>
+
+<div id="spinner">
+    <h1>Загрузка...</h1>
+</div>
+
+<div class="w-100" id="partialPagination">
+
+</div>
+
+@section scripts {
+    <script src="~/Areas/Admin/Scripts/PaginationAllTour.js"></script>
+}

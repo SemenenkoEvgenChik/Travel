@@ -1,0 +1,26 @@
+﻿@model TravelAgency.BLL.BusinessModels.CustomerBLM
+<h4 class="text-center">Результат поиска</h4>
+<table class="table">
+    <tbody>
+        <tr>
+            <th scope="row">@Model.Name</th>
+            <th scope="row">@Model.Surname</th>
+            <th scope="row">@Model.ApplicationUserBLM.Email</th>
+            <th scope="row">@Model.StatusClientBLM.Status</th>
+            <td scope="row">
+                @{ if (Model.StatusClientBLM.Status == "Заблокирован")
+                    {
+                        @Html.ActionLink("Разблокировать", "Unlock", "Customer", new { id = Model.Id }, new { @class = "btn btn-secondary" });
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Заблокировать", "Lock", "Customer", new { id = Model.Id }, new { @class = "btn btn-secondary" });
+                    }
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Информация о клиенте", "GetCustomerInformation", "Customer", new { idCustomer = Model.Id }, new { @class = "btn btn-secondary" })
+            </td>
+        </tr>
+    </tbody>
+</table>`

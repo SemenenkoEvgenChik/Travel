@@ -1,0 +1,162 @@
+﻿@model TravelAgency.WEB.Models.ViewModels.CustomerPersonalAccountViewModel
+
+@{
+    ViewBag.Title = "GetCustomerInformation";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<input id="idCustomer" value="@Model.CustomerBLM.Id" hidden />
+<div id="personalData">
+    <h3>Имя: @Model.CustomerBLM.Name</h3>
+    <h3>Фамилия: @Model.CustomerBLM.Surname</h3>
+    <h3>
+        Почта: @Model.CustomerBLM.ApplicationUserBLM.Email
+        <input type="button" class="btn btn-secondary" data-toggle="modal" data-target="#ChangeCustomerEmail" value="Изменить" onclick="$('#IdCustomer').val('@Model.CustomerBLM.Id')">
+    </h3>
+    <h3>
+        Скидка растет на: @Model.CustomerBLM.DiscountStep% при оплате предыдущего заказа
+        <input type="button" class="btn btn-secondary" data-toggle="modal" data-target="#ChangeDiscountStep" value="Изменить" onclick="$('#IdCustomer').val('@Model.CustomerBLM.Id')">
+    </h3>
+    <h3>
+        Максимальная скидка клиента: @Model.CustomerBLM.DiscountLimit%
+        <input type="button" class="btn btn-secondary" data-toggle="modal" data-target="#ChangeDiscountLimit" value="Изменить" onclick="$('#IdCustomer').val('@Model.CustomerBLM.Id')">
+    </h3>
+</div>
+
+<div id="orders">
+    <h2>Туры</h2>
+    <div class="row">
+        @foreach (var t in Model.ListCustomerTourBLM)
+        {
+            int price = t.NumberPerson * t.TourBLM.Price;
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        @{
+                            string result = "Активен";
+                            if (DateTime.Now > t.TourBLM.ArrivalDate)
+                            {
+                                result = "Завершен";
+                            }
+                        }
+                        <h3 class="card-title">С @t.TourBLM.FlightBLM.FromWhereBLM.NameOfCity в @t.TourBLM.FlightBLM.WhereToBLM.NameOfCity</h3>
+                        <h3>@result</h3>
+                        <h4>
+                            Статус: @t.TripStatusBLM.Status
+                            @if (result == "Активен")
+                            {
+                                <input type="button" class="btn btn-secondary" data-toggle="modal" data-target="#ChangeTripStatus" value="Изменить статус тура" onclick="$('#IdTourCustomer').val('@t.Id')">
+                            }
+                        </h4>
+                        <h5>Количество человек: @t.NumberPerson Цена: @price $</h5>
+                        <p class="card-text">Дата отправления @t.TourBLM.DepartureDate</p>
+                        <p class="card-text">Дата прибытия @t.TourBLM.ArrivalDate</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+<div class="modal fade" id="ChangeDiscountLimit" tabindex="-1" role="dialog" aria-labelledby="ChangeDiscountLimit" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content justify-content-center align-items-center">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="ChangeDiscountLimit">Изменение лимита скидки для клиента @Model.CustomerBLM.Name @Model.CustomerBLM.Surname</h5>
+                <button type="button" class="close w-auto" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="IdTourCustomer" hidden />
+                <input type="text" id="discountLimit" placeholder="Лимит скидки" class="form-control" />
+                <div id="NewLimit-error"></div>
+
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-primary w-auto" value="Изменить" onclick="ChangeDiscountLimit()">
+                <button type="button" class="btn btn-secondary w-auto" id="dataDismiss" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ChangeDiscountStep" tabindex="-1" role="dialog" aria-labelledby="ChangeDiscountStep" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content justify-content-center align-items-center">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="ChangeDiscountStep">Изменение шага скидки для клиента @Model.CustomerBLM.Name @Model.CustomerBLM.Surname</h5>
+                <button type="button" class="close w-auto" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="IdTourCustomer" hidden />
+                <input type="text" id="discountStep" placeholder="Шаг скидки" class="form-control" />
+                <div id="NewStep-error"></div>
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-primary w-auto" value="Изменить" onclick="ChangeDiscountStep()">
+                <button type="button" class="btn btn-secondary w-auto" id="dataDismiss" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ChangeCustomerEmail" tabindex="-1" role="dialog" aria-labelledby="ChangeCustomerEmail" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content justify-content-center align-items-center">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="ChangeCustomerEmail">Изменение почты для клиента @Model.CustomerBLM.Name @Model.CustomerBLM.Surname</h5>
+                <button type="button" class="close w-auto" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="IdTourCustomer" hidden />
+                <input type="email" id="newEmail" class="form-control" />
+                <div id="Email-error"></div>
+
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-primary w-auto" value="Изменить" onclick="ChangeCustomerEmail()">
+                <button type="button" class="btn btn-secondary w-auto" id="dataDismiss" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ChangeTripStatus" tabindex="-1" role="dialog" aria-labelledby="ChangeTripStatus" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content justify-content-center align-items-center">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="ChangeTripStatus">Изменение статуса тура для клиента @Model.CustomerBLM.Name @Model.CustomerBLM.Surname</h5>
+                <button type="button" class="close w-auto" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="IdTourCustomer" hidden />
+                <select id="changeTripStatus" class="form-control">
+                    @foreach (var s in Model.ListTripStatus)
+                    {
+                        <option value="@s.Id">@s.Status</option>
+                    }
+                </select>
+
+            </div>
+            <div class="modal-footer">
+                <input type="button" class="btn btn-primary w-auto" value="Изменить" onclick="changeTripStatus()">
+                <button type="button" class="btn btn-secondary w-auto" id="dataDismiss" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Areas/Admin/Scripts/TripStatus.js"></script>
+    <script src="~/Areas/Admin/Scripts/ChangeCustomerInfo.js"></script>
+}

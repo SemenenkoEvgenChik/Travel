@@ -1,0 +1,76 @@
+﻿@model TravelAgency.WEB.Models.ViewModels.ListManagerViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#RegistrationNewManager">
+    Зарегистрировать менеджера
+</button>
+@if (Model.Managers.Count() < 1)
+{
+    <h4 class="text-center">У вас нет менеджеров!Пора добавить.</h4>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Имя</th>
+                <th scope="col">Фамилия</th>
+                <th scope="col"></th>
+
+            </tr>
+        </thead>
+        @foreach (var m in Model.Managers)
+        {
+            <tbody>
+                <tr>
+                    <th scope="row">@m.Name</th>
+                    <th scope="row">@m.Surname</th>
+                    <td scope="row">
+
+                        <button type="button" class="btn btn-secondary delete-manager-btn" data-managerid="@m.Id">Удалить менеджера</button>
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+}
+
+<div class="modal fade" id="RegistrationNewManager" tabindex="-1" role="dialog" aria-labelledby="RegistrationNewManager" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="RegistrationNewManager">Регистрация нового менеджера</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="item">
+                    <input type="text" id="Name" name="Name" placeholder="Имя" class="form-control mt-2 w-100" />
+                    <span id="Name-error"></span>
+                </div>
+                <div class="item">
+                    <input type="text" id="Surname" name="Surname" placeholder="Фамилия" class="form-control mt-2 w-100" />
+                    <span id="Surname-error"></span>
+                </div>
+                <div class="item">
+                    <input type="text" id="Email" name="Email" placeholder="Почта" class="form-control mt-2 w-100" />
+                    <span id="Email-error"></span>
+                    <span id="DoesSuchMailExist"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="createNewManager()">Добавить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Areas/Admin/Scripts/Manager.js"></script>
+}

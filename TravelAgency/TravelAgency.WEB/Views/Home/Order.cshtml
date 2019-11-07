@@ -1,0 +1,50 @@
+﻿@model TravelAgency.WEB.Models.ViewModels.OrderViewModel
+@{
+    ViewBag.Title = "Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<input type="text" id="modelPrice" hidden value="@Model.TourBLM.Price">
+<input type="text" id="idTour" hidden value="@Model.TourBLM.Id">
+<input type="text" id="discount" hidden value=@Model.TourBLM.Discount>
+<div id="toutInf" class="card text-center">
+    <div class="card-header">
+        <h1>@Model.TourBLM.FlightBLM.FromWhereBLM.NameOfCity - @Model.TourBLM.FlightBLM.WhereToBLM.NameOfCity</h1>
+    </div>
+    
+    <div class="card-body">
+
+        <h3 class="card-title">Цена тура для одного человека без скидки: @Model.TourBLM.Price$</h3>
+        <h3 class="card-title">Цена тура со скидкой для указаного количества человек: <b id="priceForTour"> </b>$</h3>
+        <h3 class="card-title">Ваша скидка на данный тур: <b>@Model.TourBLM.Discount</b>%</h3>
+        
+        <h4 class="card-text">
+            Данный тур <b>@Model.TourBLM.TypeOfTourBLM.Description</b> расчитан максимум на <b>@Model.TourBLM.NumberOfPersons</b> человек. В стоимость путевки входит
+            транспорт,а именно билет на <b>@Model.TourBLM.FlightBLM.MeansOfTransportBLM.TypeOfTransport</b> туда и обратно.</br>
+            Дата отправления <b>@Model.TourBLM.DepartureDate</b> и дата прибытия <b>@Model.TourBLM.ArrivalDate</b>. Вы будете проживать в <b>@Model.TourBLM.HotelBLM.NumberOfStars-ти</b> звездочном отеле.</br>
+            Питание: <b>@Model.TourBLM.FoodBLM.TypeOfFood</b>. Тип тура это <b>@Model.TourBLM.TypeOfRestBLM.Description</b></br>
+            Выберите количество человек
+            <select id="countPerson">
+                @for (int i = 1; i <= Model.TourBLM.NumberOfPersons; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </h4>
+        @if (Model.TourBLM.AlreadyOrdered)
+        {
+            <p>Тур уже заказан</p>
+            @Html.ActionLink("К списку туров!", "Index", "Home", new { @class = "btn btn-primary" })
+        }
+        else
+        {
+            <button type="button" class="btn btn-primary" onclick="RegisterOrder()">Зарегестрировать заказ!</button>
+        }
+    </div>
+    <div class="card-footer text-muted">
+        По всем вопросам: +380680651220
+    </div>
+</div>
+@section scripts {
+    <script src="~/Scripts/ClientScripts/OrderTour.js"></script>
+}

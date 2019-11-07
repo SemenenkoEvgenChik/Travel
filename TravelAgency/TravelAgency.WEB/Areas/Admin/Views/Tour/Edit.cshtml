@@ -1,0 +1,130 @@
+﻿@model TravelAgency.WEB.Models.ViewModels.TourEditViewModel
+
+<input type="text" id="IdTour" value="@Model.IdTour" hidden />
+<input type="text" id="IdFlight" value="@Model.IdFlight" hidden />
+
+<div id="contentTour" class="card-body">
+    <div class="col-sm-6 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <b>Дата отъезда :</b><Br>
+                        <input type="text" id="EditDepartureDate" autocomplete="off" class="form-control" value="@Model.DepartureDate">
+                        <span id="DepartureDate-error"></span>
+                    </div>
+                    <div class="col-sm-6" ">
+                        <b>Дата приезда :</b><Br>
+                        <input type="datetime" id="EditArrivalDate" autocomplete="off" class="form-control" value="@Model.ArrivalDate">
+                        <span id="ArrivalDate-error"></span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <b>Тип путевки:</b><Br>
+                        <select id="EditTypeOfTour"  class="form-control">
+                            <option value="@Model.TypeOfTourId" selected>@Model.TypeOfTourBLM.Description</option>
+                            @foreach (var typeOfTour in Model.ListTourOpions.TypeOfTour)
+                            {
+                                <option value="@typeOfTour.Id">@typeOfTour.Description</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <b>Количество звезд гостиницы:</b><Br>
+                        <select id="EditHotel"  class="form-control">
+                            <option value="@Model.HotelId" selected>@Model.HotelBLM.NumberOfStars</option>
+                            @foreach (var hotel in Model.ListTourOpions.Hotels)
+                            {
+                                <option value="@hotel.Id">@hotel.NumberOfStars</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <b>Макс. количество человек:</b><br />
+                        <input id="EditCountPerson" type="number" autocomplete="off" class="form-control" value="@Model.NumberOfPersons">
+                        <span id="MaxNumberOfPersons-error"></span>
+                    </div>
+                    <div class="col-sm-6">
+                        <b>Цена:</b><br>
+                        <input id="EditPrice" type="number" autocomplete="off" class="form-control" value="@Model.Price">
+                        <span id="Price-error"></span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <b>Каким будет питание :</b><Br>
+                        <select id="EditTypeOfFood" class="form-control">
+                            <option value="@Model.FoodId" selected>@Model.FoodBLM.TypeOfFood</option>
+                            @foreach (var f in Model.ListTourOpions.Food)
+                            {
+                                <option value="@f.Id">@f.TypeOfFood</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <b>Откуда :</b><Br>
+                        <select id="EditFromWhere" class="form-control">
+                            <option value="@Model.FromWhereId" selected>@Model.FlightBLM.FromWhereBLM.NameOfCity</option>
+                            @foreach (var fromWhere in Model.ListTourOpions.Cities)
+                            {
+                                if (fromWhere.KeyCountry == "(UA)")
+                                {
+                                    <option value="@fromWhere.Id">@fromWhere.NameOfCity</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <b>В какую страну :</b><Br>
+                        <select id="EditCountries" class="form-control">
+                            <option value="@Model.CountriesId" selected>@Model.CountriesBLM.NameOfCountry</option>
+                            @foreach (var country in Model.ListTourOpions.Countries)
+                            {
+                                if (country.Key != "(UA)")
+                                {
+                                    <option value="@country.Id">@country.NameOfCountry</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <b>В какой город :</b><Br>
+                        <select id="EditCityForCountry" class="form-control">
+                            <option value="@Model.WhereToId" selected>@Model.FlightBLM.WhereToBLM.NameOfCity</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <b>Вид транспорта :</b><Br>
+                        <select id="EditMeansOfTransport" class="form-control">
+                            <option value="@Model.FlightBLM.MeansOfTransportId" selected>@Model.FlightBLM.MeansOfTransportBLM.TypeOfTransport</option>
+                            @foreach (var transport in Model.ListTourOpions.MeansOfTransports)
+                            {
+                                <option value="@transport.Id">@transport.TypeOfTransport</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <b>Тип поездки :</b><Br>
+                        <select id="EditTypeOfRest" class="form-control">
+                            <option value="@Model.TypeOfRestId" selected>@Model.TypeOfRestBLM.Description</option>
+                            @foreach (var typeOfRest in Model.ListTourOpions.TypeOfRest)
+                            {
+                                <option value="@typeOfRest.Id">@typeOfRest.Description</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="w-100">
+                        <div class="mt-lg-3 text-center">
+                            <button type="button" class="btn btn-secondary w-auto" onclick="tourEditRequestModel()">Подтвердить!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script src="~/Areas/Admin/Scripts/EditTour.js"></script>
+}

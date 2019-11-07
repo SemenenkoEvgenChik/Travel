@@ -1,0 +1,26 @@
+﻿@model TravelAgency.BLL.BusinessModels.IdentityViewModels.ExternalLoginListViewModel
+@using Microsoft.Owin.Security
+@{
+    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+}
+
+@if (loginProviders.Count() > 0)
+{
+    using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Model.ReturnUrl }))
+    {
+        @Html.AntiForgeryToken()
+        var googleAuth = loginProviders.FirstOrDefault(pr => pr.AuthenticationType.Equals("Google"));
+        if (!(googleAuth is null))
+        {
+            <div class="social-login">
+                <button id="@googleAuth.AuthenticationType"
+                        name="provider"
+                        value="@googleAuth.AuthenticationType"
+                        class="btn btn-danger w-100"
+                        type="submit">
+                    <span><i class="fab fa-google pr-3"></i>Войти с помощью Google</span>
+                </button>
+            </div>
+        }
+    }
+}

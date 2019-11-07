@@ -1,0 +1,62 @@
+﻿@model TravelAgency.WEB.Models.ViewModels.CustomerPersonalAccountViewModel
+@{
+    ViewBag.Title = "PersonalAccount";
+}
+    <div id="personalData">
+        <h3>Имя: @Model.CustomerBLM.Name</h3>
+        <h3>Фамилия: @Model.CustomerBLM.Surname</h3>
+        <h3>Почта: @Model.CustomerBLM.ApplicationUserBLM.Email</h3>
+        <h3>Скидка на следующий тур: @Model.Discount % от указаной цены</h3>
+        @Html.ActionLink("Изменить персональные данные", "GetPersonalInformation", "Home", new { idCustomer = Model.CustomerBLM.Id }, new { @class = "btn btn-success" })
+    </div>
+<div id="infoMessage" class="text-center">
+    <h4>
+        ВНИМАНИЕ!<br>
+        Если вы закажете тур,а потом отмените,<br />
+        то процент вашей скидки на следующий тур понизится на 1%
+    </h4>
+</div>
+<div id="orders">
+    <h2>Туры</h2>
+    <div class="row">
+        @foreach (var t in Model.ListCustomerTourBLM)
+        {
+            double discountTour = 0.0;
+            if (t.Discount > 0)
+            {
+                double discount = t.Discount / 100.00;
+                discountTour = t.TourBLM.Price * discount;
+            }
+            else
+            {
+                discountTour = 0.0;
+            }
+            double priceDiscount = (t.TourBLM.Price - discountTour) * t.NumberPerson;
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        @{
+                            string result = "Активен";
+                            if (DateTime.Now > t.TourBLM.ArrivalDate)
+                            {
+                                result = "Завершен";
+                            }
+                        }
+                        <h3 class="card-title">@t.TourBLM.FlightBLM.FromWhereBLM.NameOfCity - @t.TourBLM.FlightBLM.WhereToBLM.NameOfCity</h3>
+                        <h3>@result</h3>
+                        <h4>Статус: @t.TripStatusBLM.Status</h4>
+                        <h5>Скидка на данный тур: @t.Discount</h5>
+                        <h5>Стоимость тура без скидки для одного человека: @t.TourBLM.Price $</h5>
+                        <h5>Количество человек: @t.NumberPerson Цена со скидкой: @priceDiscount $</h5>
+                        <p class="card-text">Дата отправления @t.TourBLM.DepartureDate</p>
+                        <p class="card-text">Дата прибытия @t.TourBLM.ArrivalDate</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@*@section scripts {
+    <script src="~/Scripts/ClientScripts/PersonalInformationCustomer.js"></script>
+}*@

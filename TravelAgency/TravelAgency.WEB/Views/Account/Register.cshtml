@@ -1,0 +1,27 @@
+﻿@model TravelAgency.BLL.BusinessModels.IdentityViewModels.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="pt-5 mb-4">
+    <div class="col-lg-4 col-md-5 col-sm-11 pt-3 mx-auto shadow rounded">
+        <h1 class="h3 mb-3 font-weight-normal text-center">Регистрация</h1>
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal form-signup", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control mb-2", placeholder = "Имя" })
+            @Html.TextBoxFor(m => m.Surname, new { @class = "form-control mb-2", placeholder = "Фамилия" })
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control mb-2", placeholder = "Email" })
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control mb-2", placeholder = "Пароль" })
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control mb-2", placeholder = "Повторите пароль" })
+
+            <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Зарегистрироваться!</button>
+            <br />
+        }
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", new { area = default(string) }, FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <span class="my-auto text-warning">
+            @User.Identity.GetUserName()
+        </span>
+        if (!User.IsInRole("admin") && !User.IsInRole("manager"))
+        {
+            <span class="ml-2 ">
+                @Html.ActionLink("Личный кабинет", "PersonalAccount", "Home", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-outline-success my-2 my-sm-0" })
+            </span>
+        }
+        <span class="ml-2">
+            <button type="submit" class="btn btn-outline-success my-2 my-sm-0">Выйти</button>
+        </span>
+    }
+}
+else
+{
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item active pr-2">
+            @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+        </li>
+        <li class="nav-item active">
+            @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+        </li>
+    </ul>
+}

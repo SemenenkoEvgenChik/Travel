@@ -1,0 +1,38 @@
+﻿@using TravelAgency.BLL.BusinessModels.IdentityViewModels
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+<div class="pt-5">
+    <div class="col-lg-4 col-md-5 col-sm-11 pt-3 mx-auto rounded shadow">
+        <h1 class="h3 mb-3 font-weight-normal text-center">Вход</h1>
+        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+        <p style="text-align:center"> ИЛИ  </p>
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control mb-2", placeholder = "Почта", type = "email" })
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control mb-2", placeholder = "Пароль" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
+
+            <button class="btn btn-success btn-block mt-3" type="submit"><i class="fas fa-sign-in-alt pr-3"></i>Войти!</button>
+            @Html.ActionLink("Забыли пароль?", "ForgotPassword", "Home");
+            <hr>
+
+            @*<a href="/Account/Register" class="btn btn-primary btn-block" id="btn-signup"><i class="fas fa-user-plus"></i> Sign up New Account</a>*@
+        }
+
+        <br>
+
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

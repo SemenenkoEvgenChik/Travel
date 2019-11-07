@@ -1,0 +1,61 @@
+﻿@model TravelAgency.WEB.Models.ViewModels.CustomerPaginationViewModel
+@if (Model.ResponsePaginationCustomerModel.CustomerBLM.Count() < 1)
+{
+    <h4 class="text-center">Пусто!</h4>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Имя</th>
+                <th scope="col">Фамилия</th>
+                <th scope="col">Почта</th>
+                <th scope="col">Статус</th>
+                <th scope="col"></th>
+
+            </tr>
+        </thead>
+        @foreach (var c in Model.ResponsePaginationCustomerModel.CustomerBLM)
+        {
+            <tbody>
+                <tr>
+                    <th scope="row">@c.Name</th>
+                    <th scope="row">@c.Surname</th>
+                    <th scope="row">@c.ApplicationUserBLM.Email</th>
+                    <th scope="row">@c.StatusClientBLM.Status</th>
+                    <td>
+                        @Html.ActionLink("Информация о клиенте", "GetCustomerInformation", "Customer", new { idCustomer = c.Id }, new { @class = "btn btn-secondary" })
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+}
+
+<nav aria-label="PageNavigation">
+    <ul class="pagination">
+        @if (Model.ResponsePaginationCustomerModel.PageNumber > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" id="Prev" href="javascript:Prev()" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        }
+
+        <li class="page-item"><a class="page-link">@Model.ResponsePaginationCustomerModel.PageNumber / @Model.ResponsePaginationCustomerModel.TotalPages</a></li>
+
+        @if (Model.ResponsePaginationCustomerModel.PageNumber < Model.ResponsePaginationCustomerModel.TotalPages)
+        {
+            <li class="page-item">
+                <a class="page-link" href="javascript:Next()" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        }
+    </ul>
+</nav>
+
+
+

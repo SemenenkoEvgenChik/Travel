@@ -1,0 +1,35 @@
+﻿@model TravelAgency.WEB.Models.ViewModels.ChangePersonalInformationViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<input type="text" hidden value="@Model.CustomerBLM.Id" id="IdCustomer" />
+<div class="card-body text-center">
+    <div class="col-sm-5 mx-auto">
+        <div class="card ">
+            <h2>Изменение персональных данных</h2>
+            <div class="card-body ">
+                <div class="row">
+                    <input type="text" id="Name" value="@Model.CustomerBLM.Name" class="form-control" placeholder="Имя" autocomplete="off" />
+                    <span id="Name-error"></span>
+                    <input type="text" id="Surname" value="@Model.CustomerBLM.Surname" class="form-control" placeholder="Фамилия" />
+                    <span id="Surname-error"></span>
+                    <input type="text" id="Email" value="@Model.CustomerBLM.ApplicationUserBLM.Email" class="form-control" placeholder="Почта" autocomplete="off" />
+                    <span id="Email-error"></span>
+                    <button type="button" class="btn btn-primary w-50 mt-4" onclick="ChangePersonalInformation()">Изменить</button>
+                </div>
+                <div class="row">
+                    <input type="password" id="oldPassword" class="form-control" value="" placeholder="Старый пароль" autocomplete="off" />
+                    <span id="OldPassword-error"></span>
+                    <input type="password" id="newPassword" class="form-control" value="" placeholder="Новый пароль" autocomplete="off" />
+                    <span id="NewPassword-error"></span>
+                    <input type="password" id="confirmPassword" class="form-control" value="" placeholder="Подтвердите пароль" autocomplete="off" />
+                    <span id="ConfirmPassword-error"></span>
+                    <button type="button" class="btn btn-primary w-50 float-right" id="changePasswordBtn">Изменить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts {
+    <script src="~/Scripts/ClientScripts/PersonalInformationCustomer.js"></script>
+}

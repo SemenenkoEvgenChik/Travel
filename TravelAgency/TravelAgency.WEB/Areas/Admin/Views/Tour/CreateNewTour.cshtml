@@ -1,0 +1,138 @@
+﻿@model TravelAgency.WEB.Models.ViewModels.CreateNewTourViewModel
+@{
+    ViewBag.Title = "CreateNewTour";
+}
+
+<div class="card-body">
+    <div class="col-sm-6 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <b>Дата отъезда:</b><br /> <input type="text" id="DepartureDate" autocomplete="off" class="form-control">
+                        <span id="DepartureDate-error"></span>
+                    </div>
+                    <div class="col-sm-6">
+                        <b>Дата приезда:</b> <br /><input type="datetime" id="ArrivalDate" autocomplete="off" class="form-control">
+                        <span id="ArrivalDate-error"></span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <b>Тип путевки:</b><br />
+                        <select id="typeOfTour" class="form-control">
+                            <option hidden selected>Выберите тип путевки</option>
+                            @foreach (var typeOfTour in Model.ListTourOpions.TypeOfTour)
+                            {
+                                <option value="@typeOfTour.Id">@typeOfTour.Description</option>
+                            }
+                        </select>
+                        <span id="TypeOfTourId-error"></span>
+                    </div>
+                    <div class="col-sm-6">
+                        <b>Количество звезд гостиницы:</b><br />
+                        <select id="numberOfStars" class="form-control">
+                            <option hidden selected>Выберите количество звезд</option>
+                            @foreach (var numberOfStars in Model.ListTourOpions.Hotels)
+                            {
+                                <option value="@numberOfStars.Id">@numberOfStars.NumberOfStars</option>
+                            }
+                        </select>
+                        <span id="HotelId-error"></span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <b>Макс. количество человек:</b><br />
+                        <input id="countPerson" type="number" autocomplete="off" class="form-control">
+                        <span id="MaxNumberOfPersons-error"></span>
+                    </div>
+                    <div class="col-sm-6">
+                        <b>Цена:</b><br />
+                        <input id="price" type="number" autocomplete="off" class="form-control">
+                        <span id="Price-error"></span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <b>Каким будет питание :</b><br />
+                        <select id="typeOfFood" class="form-control" >
+                            <option hidden selected>Выберите вид питания</option>
+                            @foreach (var f in Model.ListTourOpions.Food)
+                            {
+                                <option value="@f.Id">@f.TypeOfFood</option>
+                            }
+                        </select>
+                        <span id="FoodId-error"></span>
+                    </div>
+                    <div class="col-sm-6">
+                        <b>Откуда :</b><br />
+                        <select id="fromWhere" class="form-control">
+                            <option hidden selected>Выберите город</option>
+                            @foreach (var fromWhere in Model.ListTourOpions.Cities)
+                            {
+                                if (fromWhere.KeyCountry == "(UA)")
+                                {
+                                    <option value="@fromWhere.Id">@fromWhere.NameOfCity</option>
+                                }
+                            }
+                        </select>
+                        <span id="FromWhereId-error"></span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <b>В какую страну :</b><br />
+                        <select id="countries" class="form-control">
+                            <option hidden selected>Выберите страну</option>
+                            @foreach (var country in Model.ListTourOpions.Countries)
+                            {
+                                if (country.Key != "(UA)")
+                                {
+                                    <option value="@country.Id">@country.NameOfCountry</option>
+                                }
+                            }
+                        </select>
+                        <span id="CountriesId-error"></span>
+                    </div>
+                    <div class="col-sm-6">
+                        <b>В какой город :</b><br />
+                        <select id="cityForCountry" class="form-control">
+                            <option hidden selected>Выберите в какой город</option>
+                        </select>
+                        <span id="WhereToId-error"></span>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <b>Вид транспорта :</b><br />
+                        <select id="meansOfTransport" class="form-control">
+                            <option hidden selected>Выберите вид транспорта</option>
+                            @foreach (var transport in Model.ListTourOpions.MeansOfTransports)
+                            {
+                                <option value="@transport.Id">@transport.TypeOfTransport</option>
+                            }
+                        </select>
+                        <span id="MeansOfTransportId-error"></span>
+                    </div>
+                    <div class="col-sm-6">
+                        <b>Тип поездки :</b><br />
+                        <select id="typeOfRest" class="form-control">
+                            <option hidden selected>Выберите тип поездки</option>
+                            @foreach (var typeOfRest in Model.ListTourOpions.TypeOfRest)
+                            {
+                                <option value="@typeOfRest.Id">@typeOfRest.Description</option>
+                            }
+                        </select>
+                        <span id="TypeOfRestId-error"></span>
+                    </div>
+                    <div class="w-100">
+                        <div class="mt-lg-3 text-center">
+                            <button type="button" class="btn btn-secondary w-50" onclick="requesTourModel()">Подтвердить!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script src="~/Areas/Admin/Scripts/CreateNewTour.js"></script>
+}

@@ -1,0 +1,35 @@
+﻿@model TravelAgency.WEB.Models.ViewModels.ListLoggersViewModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table mw-100">
+    <thead>
+        <tr class="text-center">
+            <th scope="col">Дата</th>
+            <th scope="col">Сообщение</th>
+            <th scope="col">Уровень</th>
+            <th scope="col">Ошибка</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var l in Model.ListLoggerBLM)
+        {
+            <tr>
+                <td scope="row">@l.TimeStamp</td>
+                <td scope="row">
+                    @l.Message
+                </td>
+                <td scope="row">
+                        @l.Level
+                </td>
+                <td scope="row">
+                    <div style="width:auto; height: 85px; overflow:auto;">
+                        @l.Exception
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
