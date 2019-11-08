@@ -37,17 +37,19 @@
     </div>
 </div>
 
-<div id="sorting">
-    <h4>Сортировать по: </h4>
-    @{
-        var selectList = EnumHelper.GetSelectList(typeof(SortIndexBLL));
-        var selected = selectList.FirstOrDefault(x => x.Equals(Model.SortIndexBLL));
-        if (selected != null)
-        {
-            selected.Selected = true;
+<div class="d-flex justify-content-center mt-2" id="sorting">
+    <div class="form-group">
+        <span>Сортировать по</span>
+        @{
+            var selectList = EnumHelper.GetSelectList(typeof(SortIndexBLL));
+            var selected = selectList.FirstOrDefault(x => x.Equals(Model.SortIndexBLL));
+            if (selected != null)
+            {
+                selected.Selected = true;
+            }
         }
-    }
-    @Html.DropDownList("SortIndexBLL", selectList, new { @class = "form-control w-auto", id = "sortIndexBLL" })
+        @Html.DropDownList("SortIndexBLL", selectList, new { @class = "form-control w-auto", id = "sortIndexBLL" })
+    </div>
 </div>
 <div class="card-body text-center">
     <div class="row">

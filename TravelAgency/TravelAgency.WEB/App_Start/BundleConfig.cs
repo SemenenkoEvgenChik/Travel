@@ -29,6 +29,7 @@ namespace TravelAgency.WEB
                       "~/Content/css/all.min.css",
                       "~/Content/css/bootstrap.css",
                       "~/Content/app/home.css",
+                      "~/Content/app/loggerTable.css",
                       "~/Content/css/jquery.datetimepicker.min.css"));
         }
     }

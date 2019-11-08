@@ -275,6 +275,7 @@
     <Content Include="Areas\Manager\Scripts\PaginationTours.js" />
     <Content Include="Areas\Manager\Scripts\TripStatus.js" />
     <Content Include="Content\app\home.css" />
+    <Content Include="Content\app\loggerTable.css" />
     <Content Include="Content\css\all.min.css" />
     <Content Include="Content\css\bootstrap-grid.css" />
     <Content Include="Content\css\bootstrap-grid.min.css" />
@@ -283,6 +284,8 @@
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\sweetalert.css" />
+    <Content Include="Content\Image\businessapplication_accept_ok_male_man_you_negocio_2311.png" />
+    <Content Include="Content\Image\personal.png" />
     <Content Include="Content\webfonts\fa-brands-400.svg" />
     <Content Include="Content\webfonts\fa-regular-400.svg" />
     <Content Include="Content\webfonts\fa-solid-900.svg" />

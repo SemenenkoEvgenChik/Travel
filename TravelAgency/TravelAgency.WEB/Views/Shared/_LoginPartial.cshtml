@@ -5,7 +5,7 @@
     {
         @Html.AntiForgeryToken()
 
-        <span class="my-auto text-warning">
+        <span class="my-auto text-black-50">
             @User.Identity.GetUserName()
         </span>
         if (!User.IsInRole("admin") && !User.IsInRole("manager"))

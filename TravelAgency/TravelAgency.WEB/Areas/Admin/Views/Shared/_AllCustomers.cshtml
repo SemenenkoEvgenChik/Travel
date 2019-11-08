@@ -5,44 +5,45 @@
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Имя</th>
-                <th scope="col">Фамилия</th>
-                <th scope="col">Почта</th>
-                <th scope="col">Статус</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-
-            </tr>
-        </thead>
-        @foreach (var c in Model.ResponsePaginationCustomerModel.CustomerBLM)
-        {
-            <tbody>
-                <tr>
-                    <th scope="row">@c.Name</th>
-                    <th scope="row">@c.Surname</th>
-                    <th scope="row">@c.ApplicationUserBLM.Email</th>
-                    <th scope="row">@c.StatusClientBLM.Status</th>
-                    <td scope="row">
-                        @{ if (c.StatusClientBLM.Status == "Заблокирован")
-                            {
-                                @Html.ActionLink("Разблокировать", "Unlock", "Customer", new { id = c.Id }, new { @class = "btn btn-secondary" });
-                            }
-                            else
-                            {
-                                @Html.ActionLink("Заблокировать", "Lock", "Customer", new { id = c.Id }, new { @class = "btn btn-secondary" });
-                            }
-                        }
-                    </td>
-                    <td>
-                        @Html.ActionLink("Информация о клиенте", "GetCustomerInformation", "Customer", new { idCustomer = c.Id }, new { @class = "btn btn-secondary" })
-                    </td>
+    <div class="m-4">
+        <table class="table table-hover">
+            <thead>
+                <tr class="row text-center">
+                    <th class="col-sm-2 table-info">Имя</th>
+                    <th class="col-sm-2 table-info">Фамилия</th>
+                    <th class="col-sm-3 table-info">Почта</th>
+                    <th class="col-sm-1 table-info">Статус</th>
+                    <th class="col-sm-2 table-info"></th>
+                    <th class="col-sm-2 table-info"></th>
                 </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in Model.ResponsePaginationCustomerModel.CustomerBLM)
+                {
+                    <tr class="row text-center">
+                        <td class="col-sm-2">@c.Name</td>
+                        <td class="col-sm-2">@c.Surname</td>
+                        <td class="col-sm-3">@c.ApplicationUserBLM.Email</td>
+                        <td class="col-sm-1">@c.StatusClientBLM.Status</td>
+                        <td class="col-sm-2">
+                            @{ if (c.StatusClientBLM.Status == "Заблокирован")
+                                {
+                                    @Html.ActionLink("Разблокировать", "Unlock", "Customer", new { id = c.Id }, new { @class = "btn btn-secondary" });
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Заблокировать", "Lock", "Customer", new { id = c.Id }, new { @class = "btn btn-secondary" });
+                                }
+                            }
+                        </td>
+                        <td class="col-sm-2">
+                            @Html.ActionLink("Информация о клиенте", "GetCustomerInformation", "Customer", new { idCustomer = c.Id }, new { @class = "btn btn-secondary" })
+                        </td>
+                    </tr>
+                }
             </tbody>
-        }
-    </table>
+        </table>
+    </div>
 }
 <div class="d-flex justify-content-center">
 

@@ -2,66 +2,83 @@
 @{
     ViewBag.Title = "PersonalAccount";
 }
-<div id="personalData">
-    <h3>Имя: @Model.CustomerBLM.Name</h3>
-    <h3>Фамилия: @Model.CustomerBLM.Surname</h3>
-    <h3>Почта: @Model.CustomerBLM.ApplicationUserBLM.Email</h3>
-    <h3>Скидка на следующий тур: @Model.Discount % от указаной цены</h3>
-    @Html.ActionLink("Изменить персональные данные", "GetPersonalInformation", "Home", new { idCustomer = Model.CustomerBLM.Id }, new { @class = "btn btn-success" })
-</div>
-<div id="infoMessage" class="text-center">
-    <h4>
-        ВНИМАНИЕ!<br>
-        Если вы закажете тур,а потом отмените,<br />
-        то процент вашей скидки на следующий тур понизится на 1%
-    </h4>
-</div>
+<div class="container-fluid  content-block">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="card text-center accountCard mt-4" style="width: 19rem;">
+                <img class="card-img-top" src="~/Content/Image/personal.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.CustomerBLM.Name @Model.CustomerBLM.Surname</h5>
+                    <p class="card-text">@Model.CustomerBLM.ApplicationUserBLM.Email</p>
+                    <p class="card-text">Скидка на следующий тур: @Model.Discount%</p>
+                    @Html.ActionLink("Изменить персональные данные", "GetPersonalInformation", "Home", new { idCustomer = Model.CustomerBLM.Id }, new { @class = "btn btn-success" })
+                </div>
+            </div>
+        </div>
+        <div class="col">
+           
 
-<div id="orders">
-    <h2 class="text-center">Мои заказы</h2>
-    @if (Model.ListCustomerTourBLM.Count() < 1)
-    {
-        <h4 class="text-center">У вас еще нет заказов!</h4>
-    }
-    else
-    {
-        <div class="row">
-            @foreach (var t in Model.ListCustomerTourBLM)
-            {
-                double discountTour = 0.0;
-                if (t.Discount > 0)
+            <div class="text-center" id="orders">
+                <h3 class="text-center">Мои заказы</h3>
+                <hr>
+                <div id="infoMessage" class="text-center">
+                    <h6 style="color:#ff2424">
+                        Если вы закажете тур,а потом отмените,
+                        то процент вашей скидки на следующий тур понизится на 1%
+                    </h6>
+                </div>
+                <hr>
+
+                @if (Model.ListCustomerTourBLM.Count() < 1)
                 {
-                    double discount = t.Discount / 100.00;
-                    discountTour = t.TourBLM.Price * discount;
+                    <h4 class="text-center">У вас еще нет заказов!</h4>
                 }
                 else
                 {
-                    discountTour = 0.0;
-                }
-                double priceDiscount = (t.TourBLM.Price - discountTour) * t.NumberPerson;
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body">
-                            @{
-                                string result = "Активен";
-                                if (DateTime.Now > t.TourBLM.ArrivalDate)
-                                {
-                                    result = "Завершен";
-                                }
+                    <div class="row">
+                        @foreach (var t in Model.ListCustomerTourBLM)
+                        {
+                            double discountTour = 0.0;
+                            if (t.Discount > 0)
+                            {
+                                double discount = t.Discount / 100.00;
+                                discountTour = t.TourBLM.Price * discount;
                             }
-                            <h3 class="card-title">@t.TourBLM.FlightBLM.FromWhereBLM.NameOfCity - @t.TourBLM.FlightBLM.WhereToBLM.NameOfCity</h3>
-                            <h3>@result</h3>
-                            <h4>Статус: @t.TripStatusBLM.Status</h4>
-                            <h5>Скидка на данный тур: @t.Discount</h5>
-                            <h5>Стоимость тура без скидки для одного человека: @t.TourBLM.Price $</h5>
-                            <h5>Количество человек: @t.NumberPerson Цена со скидкой: @priceDiscount $</h5>
-                            <p class="card-text">Дата отправления @t.TourBLM.DepartureDate</p>
-                            <p class="card-text">Дата прибытия @t.TourBLM.ArrivalDate</p>
-                        </div>
+                            else
+                            {
+                                discountTour = 0.0;
+                            }
+                            double priceDiscount = (t.TourBLM.Price - discountTour) * t.NumberPerson;
+                            <div class="col-sm-6 p-1">
+                                <div class="card">
+                                    <div class="card-body">
+                                        @{
+                                            string result = "Активен";
+                                            if (DateTime.Now > t.TourBLM.ArrivalDate)
+                                            {
+                                                result = "Завершен";
+                                            }
+                                        }
+                                        <h4 class="card-title">@t.TourBLM.FlightBLM.FromWhereBLM.NameOfCity &#10148; @t.TourBLM.FlightBLM.WhereToBLM.NameOfCity</h4>
+                                        <h5>@result</h5>
+                                        <h6>@t.TourBLM.DepartureDate @t.TourBLM.ArrivalDate</h6>
+                                        <h6>Статус: @t.TripStatusBLM.Status</h6>
+                                        <p class="m-0">Скидка на данный тур: @t.Discount</p>
+                                        <p class="m-0">Стоимость тура без скидки для одного человека: @t.TourBLM.Price$</p>
+                                        <p class="m-0">Количество человек: @t.NumberPerson Цена со скидкой: @priceDiscount$</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     </div>
-                </div>
-            }
+                }
+            </div>
+
         </div>
-    }
+    </div>
 </div>
+
+
+
+
 

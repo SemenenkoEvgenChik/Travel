@@ -3,41 +3,40 @@
     ViewBag.Title = "Index";
 }
 
-
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#RegistrationNewManager">
-    Зарегистрировать менеджера
-</button>
-@if (Model.Managers.Count() < 1)
-{
-    <h4 class="text-center">У вас нет менеджеров!Пора добавить.</h4>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Имя</th>
-                <th scope="col">Фамилия</th>
-                <th scope="col"></th>
-
-            </tr>
-        </thead>
-        @foreach (var m in Model.Managers)
+<div class="container">
+        @if (Model.Managers.Count() < 1)
         {
-            <tbody>
-                <tr>
-                    <th scope="row">@m.Name</th>
-                    <th scope="row">@m.Surname</th>
-                    <td scope="row">
-
-                        <button type="button" class="btn btn-secondary delete-manager-btn" data-managerid="@m.Id">Удалить менеджера</button>
-                    </td>
-                </tr>
-            </tbody>
+            <h4 class="text-center">У вас нет менеджеров!Пора добавить.</h4>
         }
-    </table>
-}
-
+        else
+        {
+            <table class="table text-center table-hover">
+                <thead >
+                    <tr class="row">
+                        <th class="col-sm-4 table-info">Имя</th>
+                        <th class="col-sm-4 table-info">Фамилия</th>
+                        <th class="col-sm-4 table-info">
+                            <button type="button" class="btn btn-primary m-0" data-toggle="modal" data-target="#RegistrationNewManager">
+                                Зарегистрировать менеджера
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var m in Model.Managers)
+                    {
+                        <tr class="row">
+                            <th class="col-sm-4">@m.Name</th>
+                            <th class="col-sm-4">@m.Surname</th>
+                            <td class="col-sm-4">
+                                <button type="button" class="btn btn-secondary delete-manager-btn" data-managerid="@m.Id">Удалить менеджера</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+</div>
 <div class="modal fade" id="RegistrationNewManager" tabindex="-1" role="dialog" aria-labelledby="RegistrationNewManager" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

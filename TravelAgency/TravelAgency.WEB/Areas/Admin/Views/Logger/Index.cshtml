@@ -2,34 +2,36 @@
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
-<table class="table mw-100">
-    <thead>
-        <tr class="text-center">
-            <th scope="col">Дата</th>
-            <th scope="col">Сообщение</th>
-            <th scope="col">Уровень</th>
-            <th scope="col">Ошибка</th>
-
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var l in Model.ListLoggerBLM)
-        {
-            <tr>
-                <td scope="row">@l.TimeStamp</td>
-                <td scope="row">
-                    @l.Message
-                </td>
-                <td scope="row">
-                        @l.Level
-                </td>
-                <td scope="row">
-                    <div style="width:auto; height: 85px; overflow:auto;">
-                        @l.Exception
-                    </div>
-                </td>
+<div class="m-4">
+    <table class="table table-hover loggerTable">
+        <thead>
+            <tr class="row text-center">
+                <th class="col-sm-1 table-info">Дата</th>
+                <th class="col-sm-4 table-info">Сообщение</th>
+                <th class="col-sm-1 table-info">Уровень</th>
+                <th class="col-sm-6 table-info">Ошибка</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var l in Model.ListLoggerBLM)
+            {
+                <tr class="row">
+                    <td class="col-sm-1">@l.TimeStamp</td>
+                    <td class="col-sm-4">
+                        <div class="rowWidth">
+                            @l.Message
+                        </div>
+                    </td>
+                    <td class="col-sm-1">
+                        @l.Level
+                    </td>
+                    <td class="col-sm-6">
+                        <div class="rowWidth">
+                            @l.Exception
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

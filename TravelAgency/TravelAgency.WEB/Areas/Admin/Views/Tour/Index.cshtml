@@ -2,11 +2,14 @@
 @{
     ViewBag.Title = "Index";
 }
-<div>
-    <p>Выберите какие туры отображать</p>
-    @Html.DropDownList("StatusTourBLL",
-      EnumHelper.GetSelectList(typeof(StatusTourBLL)),
-      new { @class = "form-control w-auto", id = "statusTourEnum" })
+
+<div class="form-group row ml-4">
+    <label for="typeOfTour" class="col-sm-4 col-form-label">Выберите какие туры отображать</label>
+    <div class="col-sm-12">
+        @Html.DropDownList("StatusTourBLL",
+          EnumHelper.GetSelectList(typeof(StatusTourBLL)),
+          new { @class = "form-control w-auto", id = "statusTourEnum" })
+    </div>
 </div>
 
 <div id="spinner">

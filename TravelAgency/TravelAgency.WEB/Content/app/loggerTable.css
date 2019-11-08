@@ -1,0 +1,11 @@
+﻿.loggerTable {
+    width: 100%;
+    table-layout: fixed;
+    word-break: break-word;
+}
+
+.rowWidth {
+    width: auto;
+    height: 85px;
+    overflow: auto;
+}
