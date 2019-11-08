@@ -16,7 +16,7 @@ function searchTours() {
 
     let request = {
         numberPage: numPage,
-        sizePage: 5,
+        sizePage: 4,
         statusTour: 1,
         sortIndex: sort,
         SerchTours: {

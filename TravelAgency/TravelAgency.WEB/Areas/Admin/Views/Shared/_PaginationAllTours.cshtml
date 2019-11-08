@@ -54,7 +54,7 @@
         @foreach (var t in Model.Tours)
         {
 
-            <div class="col-sm-6">
+            <div class="col-sm-6 mt-2">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">@t.TypeOfTourBLM.Description</h4>
@@ -77,30 +77,31 @@
     </div>
 </div>
 
-<nav aria-label="PageNavigation">
-    <ul class="pagination">
-        @if (Model.PageNumber > 1)
-        {
-            <li class="page-item">
-                <a class="page-link" id="Prev" href="javascript:Prev()" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-        }
+<div class="d-flex justify-content-center">
+    <nav aria-label="PageNavigation">
+        <ul class="pagination">
+            @if (Model.PageNumber > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" id="Prev" href="javascript:Prev()" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            }
 
-        <li class="page-item"><a class="page-link">@Model.PageNumber / @Model.TotalPages</a></li>
+            <li class="page-item"><a class="page-link">@Model.PageNumber / @Model.TotalPages</a></li>
 
-        @if (Model.PageNumber < Model.TotalPages)
-        {
-            <li class="page-item">
-                <a class="page-link" href="javascript:Next()" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        }
-    </ul>
-</nav>
-
+            @if (Model.PageNumber < Model.TotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="javascript:Next()" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
 
 
 

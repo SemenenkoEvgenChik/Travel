@@ -9,14 +9,16 @@
 
     $.ajax({
         type: "Post",
-        url: '/Manager/Tour/ChangeTripStatus',
+        url: '/Manager/Customer/ChangeTripStatus',
         contentType: 'application/json; charset=utf-8;',
         data: JSON.stringify(request),
         dataType: 'json',
         success: function (response) {
-            swal({ title: '', text: 'Изменил!', type: 'success' }, function () {
-                $("#dataDismiss").click();
-            });
+            if (response.StateResult) {
+                swal({ title: '', text: 'Успешно', type: 'success' }, function () {
+                    location.reload();
+                });
+            }
         }
     });
 

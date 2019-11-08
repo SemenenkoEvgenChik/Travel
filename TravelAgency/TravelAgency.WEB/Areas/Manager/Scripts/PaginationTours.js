@@ -16,7 +16,7 @@ function GetAllNewTours() {
 
     let request = {
         numberPage: numPage,
-        sizePage: 5,
+        sizePage: 4,
         statusTour: statusTour,
         sortIndex: sort,
         SerchTours: {
@@ -62,11 +62,11 @@ function Next() {
 
 function ChangeTypeOfTour() {
     let idTour = $("#idTour").val();
-    let TripStatus = $("#typeOfTour").val();
+    let TypeOfTour = $("#typeOfTour").val();
 
     let request = {
         IdTour: idTour,
-        TripStatus: TripStatus
+        TypeOfTour: TypeOfTour
     };
 
     $.ajax({
@@ -77,7 +77,7 @@ function ChangeTypeOfTour() {
         dataType: 'json',
         success: function (response) {
             swal({ title: '', text: 'Изменил!', type: 'success' }, function () {
-                window.location.href = '/Manager/Tour/Index';
+                location.reload();
             });
         }
     });

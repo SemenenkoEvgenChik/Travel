@@ -35,15 +35,10 @@ function RegisterOrder() {
         data: JSON.stringify(request),
         dataType: 'json',
         success: function (response) {
-            function redirectToAction() {
-                window.location.href = '/Home/PersonalAccount';
-            }
             if (response.StateResult) {
-                $('#toutInf').fadeOut();
-                $('#orderTour').fadeIn();
-                setTimeout(redirectToAction, 3000);
-            } else {
-                alert("Error. Dont know. DEBUG!");
+                swal({ title: '', text: 'Спасибо за заказ! Вы можете посмотреть информацию в личном кабинете', type: 'success' }, function () {
+                    window.location.href = '/Home/PersonalAccount';
+                });
             }
         }
 

@@ -34,11 +34,11 @@ namespace TravelAgency.WEB.Areas.Manager.Controllers
             return PartialView("_PaginationAllTours", response);
         }
         [HttpPost]
-        public async Task<ActionResult> ChangeTypeOfTour(int IdTour, int TripStatus)
+        public async Task<ActionResult> ChangeTypeOfTour(int IdTour, int TypeOfTour)
         {
             var response = new ModelStateView();
-            //await _tourService.ChangeTypeOfTour(IdTour, TripStatus);
-            response.StateResult = true;
+            response.StateResult = await _tourService.ChangeTypeOfTour(IdTour, TypeOfTour);
+
             return Json(response);
         }
    

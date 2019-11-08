@@ -9,6 +9,7 @@ namespace TravelAgency.BLL.Services.Interface
 {
     public interface ITourService
     {
+        Task<bool> ChangeTypeOfTour(int IdTour, int TypeOfTour);
         Task<TourBLM> GiveTourInfoToBuyer(int tourId, string userId);
         Task<ResponsePaginationTourModel> GetAllActiveTours(RequestPaginationToursModel model);
         Task<ResponsePaginationTourModel> GetAllTours(RequestPaginationToursModel model);

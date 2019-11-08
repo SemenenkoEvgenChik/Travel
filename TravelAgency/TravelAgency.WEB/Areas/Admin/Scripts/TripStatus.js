@@ -14,7 +14,11 @@
         data: JSON.stringify(request),
         dataType: 'json',
         success: function (response) {
-            alert("Изменил da!");
+            if (response.StateResult) {
+                swal({ title: '', text: 'Успешно', type: 'success' }, function () {
+                    location.reload();
+                });
+            }
         }
     });
 

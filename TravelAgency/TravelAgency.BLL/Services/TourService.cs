@@ -19,6 +19,15 @@ namespace TravelAgency.BLL.Services
             _db = db;
         }
 
+        public async Task<bool> ChangeTypeOfTour(int IdTour, int TypeOfTour)
+        {
+            bool response = false;
+            var tour = await _db.TourRepository.GetByIdAsync(IdTour);
+            tour.TypeOfTourId = TypeOfTour;
+            response = await _db.TourRepository.UpdateAsync(tour);
+
+            return response;
+        }
         public async Task<TourBLM> GiveTourInfoToBuyer(int tourId, string userId)
         {
             var customer = await _db.CustomerRepository.GetCustomerByIdentityUserId(userId);

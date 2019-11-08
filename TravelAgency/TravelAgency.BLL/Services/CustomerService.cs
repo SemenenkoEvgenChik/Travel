@@ -58,7 +58,7 @@ namespace TravelAgency.BLL.Services
             var customer = await _db.CustomerRepository.GetCustomerByIdentityUserId(userId);
             var listCustomerTour = await _db.TourCustomerRepository.CustomerTourByCustomerIdAsync(customer.Id);
             int countOrder = listCustomerTour.Where(s => s.TripStatusId == 1).Count();        //Сколько оплачено TripStatusId == 2 оплачено
-            if (countOrder >= 1 && customer.DiscountLimit == 0 && customer.DiscountStep == 0)
+            if (countOrder >= 1 && customer.DiscountLimit == 0 && customer.DiscountStep == 0)//скидка будет только после второго заказа 2%
             {
                 customer.DiscountLimit = 10;
                 customer.DiscountStep = 1;
@@ -81,10 +81,7 @@ namespace TravelAgency.BLL.Services
             {
                 countOrder = countRegisterAndPaid - countCanceled;
             }
-            else
-            {
-                countOrder = 0;
-            }
+            
             int discount = CustomerDiscount.DiscountCalculation(customer.DiscountStep, customer.DiscountLimit, countOrder);
             return discount;
         }

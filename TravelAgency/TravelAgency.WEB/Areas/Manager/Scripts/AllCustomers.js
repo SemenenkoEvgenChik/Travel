@@ -5,7 +5,7 @@ $(document).ready(function () {
 function searchCustomers() {
     let request = {
         numberPage: numPage,
-        sizePage: 2
+        sizePage: 4
     };
 
     $.ajax({

@@ -13,9 +13,11 @@ function ChangeDiscountStep() {
         data: JSON.stringify(request),
         dataType: 'json',
         success: function (response) {
-            swal({ title: '', text: `Шаг скидки изменен на ${step}%`, type: 'success' }, function () {
-            });
-            $("#dataDismiss").click();
+            if (response.StateResult) {
+                swal({ title: '', text: `Шаг скидки изменен на ${step}%`, type: 'success' }, function () {
+                    location.reload();
+                });
+            }
         },
         error: function (response) {
             response.responseJSON.Error.forEach(x => {
@@ -41,9 +43,11 @@ function ChangeDiscountLimit() {
         data: JSON.stringify(request),
         dataType: 'json',
         success: function (response) {
-            swal({ title: '', text: `Максимальная скидка изменена на ${limit}%`, type: 'success' }, function () {
-            });
-            $("#dataDismiss").click();
+            if (response.StateResult) {
+                swal({ title: '', text: `Максимальная скидка изменена на ${limit}%`, type: 'success' }, function () {
+                    location.reload();
+                });
+            }
         },
         error: function (response) {
             response.responseJSON.Error.forEach(x => {
