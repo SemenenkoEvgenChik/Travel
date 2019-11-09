@@ -36,19 +36,15 @@ namespace TravelAgency.DAL.Repositoies
             }
 
             Expression<Func<Tour, int>> sort = s => s.TypeOfTour.Id;
-            if (model.SortIndex == SortIndex.Количество_человек)
+            if (model.SortIndex == SortIndex.CountPerson)
             {
                 sort = s => s.MaxNumberOfPersons;
             }
-            if (model.SortIndex == SortIndex.Количество_звезд_гостиницы)
+            if (model.SortIndex == SortIndex.NumberOfStars)
             {
                 sort = s => s.Hotel.Id;
             }
-            if (model.SortIndex == SortIndex.Тип_поездки)
-            {
-                sort = s => s.TypeOfRest.Id;
-            }
-            if (model.SortIndex == SortIndex.Цена)
+            if (model.SortIndex == SortIndex.Price)
             {
                 sort = s => s.Price;
             }

@@ -44,11 +44,12 @@ function GetAllNewTours() {
         },
         success: function (response) {
             $("#partialPagination").html(response);
+            $("#sortIndexBLL").children(`[value="${sort}"]`).attr('selected', true);
             $("#NumberPerson").val(numberPerson);
-            $("#NumberOfStars").val(numberOfStars);
+            $("#NumberOfStars").children(`[value="${numberOfStars}"]`).attr('selected', true);
             $("#PriceDown").val(priceDown);
             $("#PriceUp").val(priceUp);
-            $("#TypeOfRest").val(typeOfRest);
+            $("#TypeOfRest").children(`[value="${typeOfRest}"]`).attr('selected', true);
         },
         complete: function () {
             $('#spinner').hide();

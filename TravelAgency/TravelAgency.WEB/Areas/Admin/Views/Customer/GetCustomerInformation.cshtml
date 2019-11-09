@@ -5,58 +5,81 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 <input id="idCustomer" value="@Model.CustomerBLM.Id" hidden />
-<div id="personalData">
-    <h3>Имя: @Model.CustomerBLM.Name</h3>
-    <h3>Фамилия: @Model.CustomerBLM.Surname</h3>
-    <h3>
-        Почта: @Model.CustomerBLM.ApplicationUserBLM.Email
-        <input type="button" class="btn btn-secondary" data-toggle="modal" data-target="#ChangeCustomerEmail" value="Изменить" onclick="$('#IdCustomer').val('@Model.CustomerBLM.Id')">
-    </h3>
-    <h3>
-        Скидка растет на: @Model.CustomerBLM.DiscountStep% при оплате предыдущего заказа
-        <input type="button" class="btn btn-secondary" data-toggle="modal" data-target="#ChangeDiscountStep" value="Изменить" onclick="$('#IdCustomer').val('@Model.CustomerBLM.Id')">
-    </h3>
-    <h3>
-        Максимальная скидка клиента: @Model.CustomerBLM.DiscountLimit%
-        <input type="button" class="btn btn-secondary" data-toggle="modal" data-target="#ChangeDiscountLimit" value="Изменить" onclick="$('#IdCustomer').val('@Model.CustomerBLM.Id')">
-    </h3>
-</div>
-
-<div id="orders">
-    <h2>Туры</h2>
+<div class="container-fluid  content-block">
     <div class="row">
-        @foreach (var t in Model.ListCustomerTourBLM)
-        {
-            int price = t.NumberPerson * t.TourBLM.Price;
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        @{
-                            string result = "Активен";
-                            if (DateTime.Now > t.TourBLM.ArrivalDate)
-                            {
-                                result = "Завершен";
-                            }
-                        }
-                        <h3 class="card-title">С @t.TourBLM.FlightBLM.FromWhereBLM.NameOfCity в @t.TourBLM.FlightBLM.WhereToBLM.NameOfCity</h3>
-                        <h3>@result</h3>
-                        <h4>
-                            Статус: @t.TripStatusBLM.Status
-                            @if (result == "Активен")
-                            {
-                                <input type="button" class="btn btn-secondary" data-toggle="modal" data-target="#ChangeTripStatus" value="Изменить статус тура" onclick="$('#IdTourCustomer').val('@t.Id')">
-                            }
-                        </h4>
-                        <h5>Количество человек: @t.NumberPerson Цена: @price $</h5>
-                        <p class="card-text">Дата отправления @t.TourBLM.DepartureDate</p>
-                        <p class="card-text">Дата прибытия @t.TourBLM.ArrivalDate</p>
-                    </div>
+        <div class="col-sm-3">
+            <div class="card text-center accountCard mt-2" style="width: 19rem;">
+                <img class="card-img-top" src="~/Content/Image/personal.png" alt="Card image cap">
+                <div class="card-body">
+                    <h6 class="card-title">@Model.CustomerBLM.Name @Model.CustomerBLM.Surname</h6>
+                    <p class="card-text m-0">
+                        @Model.CustomerBLM.ApplicationUserBLM.Email
+                    </p>
+                    <p class="m-0">
+                        <input type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#ChangeCustomerEmail" value="Изменить" onclick="$('#IdCustomer').val('@Model.CustomerBLM.Id')">
+                    </p>
+                    <p class="m-0">
+                        Шаг скидки: @Model.CustomerBLM.DiscountStep%
+                    </p>
+                    <p class="m-0">
+                        <input type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#ChangeDiscountStep" value="Изменить" onclick="$('#IdCustomer').val('@Model.CustomerBLM.Id')">
+                    </p>
+                    <p class="m-0">
+                        Максимальная скидка: @Model.CustomerBLM.DiscountLimit%
+                    </p>
+                    <p class="m-0">
+                        <input type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#ChangeDiscountLimit" value="Изменить" onclick="$('#IdCustomer').val('@Model.CustomerBLM.Id')">
+                    </p>
                 </div>
             </div>
-        }
+        </div>
+        <div class="col">
+            <div class="text-center" id="orders">
+                <h3 class="text-center">Заказы</h3>
+                <hr>
+
+                @if (Model.ListCustomerTourBLM.Count() < 1)
+                {
+                    <h4 class="text-center">Еще нет заказов!</h4>
+                }
+                else
+                {
+                    <div class="row">
+                        @foreach (var t in Model.ListCustomerTourBLM)
+                        {
+                            int price = t.NumberPerson * t.TourBLM.Price;
+                            <div class="col-sm-6 p-1">
+                                <div class="card">
+                                    <div class="card-body">
+                                        @{
+                                            string result = "Активен";
+                                            if (DateTime.Now > t.TourBLM.ArrivalDate)
+                                            {
+                                                result = "Завершен";
+                                            }
+                                        }
+                                        <h5>@result</h5>
+                                        <h4 class="card-title">@t.TourBLM.FlightBLM.FromWhereBLM.NameOfCity &#10148; @t.TourBLM.FlightBLM.WhereToBLM.NameOfCity</h4>
+                                        <h6 class="card-text">@t.TourBLM.DepartureDate / @t.TourBLM.ArrivalDate</h6>
+                                        <h5>
+                                            @t.TripStatusBLM.Status
+                                            @if (result == "Активен")
+                                            {
+                                                <input type="button" class="btn btn-link p-0" data-toggle="modal" data-target="#ChangeTripStatus" value="Изменить статус тура" onclick="$('#IdTourCustomer').val('@t.Id')">
+                                            }
+                                        </h5>
+                                        <h6>Количество человек: @t.NumberPerson Цена: @price $</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+
+        </div>
     </div>
 </div>
-
 
 <div class="modal fade" id="ChangeDiscountLimit" tabindex="-1" role="dialog" aria-labelledby="ChangeDiscountLimit" aria-hidden="true">
     <div class="modal-dialog" role="document">
