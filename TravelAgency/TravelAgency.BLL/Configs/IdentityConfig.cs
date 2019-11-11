@@ -6,6 +6,7 @@ using Microsoft.Owin.Security;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using TravelAgency.BLL.BusinessModels;
 using TravelAgency.DAL.EF;
 using TravelAgency.DAL.Entities;
 

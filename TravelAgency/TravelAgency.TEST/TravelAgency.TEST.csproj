@@ -62,8 +62,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminServiceUnitTest.cs" />
-    <Compile Include="MoqFile\AdminMoq.cs" />
+    <Compile Include="MoqFile\CustomerModel.cs" />
+    <Compile Include="MoqFile\LoggerModel.cs" />
+    <Compile Include="MoqFile\ManagerModel.cs" />
+    <Compile Include="MoqFile\TourModel.cs" />
+    <Compile Include="MoqService\CustomerServiceUnitTest.cs" />
+    <Compile Include="MoqService\LoggerServiceUnitTest.cs" />
+    <Compile Include="MoqService\ManagerServiceUnitTest.cs" />
+    <Compile Include="MoqService\TourServiceUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
