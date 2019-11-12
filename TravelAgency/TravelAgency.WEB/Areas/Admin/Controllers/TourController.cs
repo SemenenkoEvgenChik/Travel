@@ -72,8 +72,8 @@ namespace TravelAgency.WEB.Areas.Admin.Controllers
         public async Task<ActionResult> Edit(TourEditWithoutListOptionModel requesModel)
         {
             var response = new ModelStateView();
-            await _tourService.EditTour(requesModel);
-            response.StateResult = true;
+            response.StateResult = await _tourService.EditTour(requesModel);
+            
             return Json(response);
         }
     }

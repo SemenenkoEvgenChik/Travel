@@ -12,7 +12,7 @@ using TravelAgency.DAL.UnitOfWork.Interface;
 namespace TravelAgency.TEST.MoqService
 {
     [TestClass]
-    class CustomerServiceUnitTest
+    public class CustomerServiceUnitTest
     {
         private Mock<IUnitOfWorks> _mockUnitOfWork;
         private Mock<ICustomerRepository> _mockCustomerRepository;

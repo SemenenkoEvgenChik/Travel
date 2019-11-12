@@ -40,9 +40,9 @@ namespace TravelAgency.TEST.MoqService
             var service = new TourService(_mockUnitOfWork.Object);
             TourEditWithoutListOptionModel requesModel = new TourEditWithoutListOptionModel();
             requesModel.Price = 222;
-            var act = service.EditTour(requesModel);
+            var act = await service.EditTour(requesModel);
             //Assert
-            Assert.AreEqual(tour.Price, requesModel.Price);
+            Assert.AreEqual(true, act);
         }
     }
 }

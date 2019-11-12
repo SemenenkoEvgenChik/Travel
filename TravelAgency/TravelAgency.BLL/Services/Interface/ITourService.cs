@@ -18,7 +18,7 @@ namespace TravelAgency.BLL.Services.Interface
         Task AddTourAndFlight(CreateTourModel requesModel);
         Task<TourBLM> GetTourById(int idTour);
         Task<FlightBLM> GetFlightById(int idFlight);
-        Task EditTour(TourEditWithoutListOptionModel requesModel);
+        Task<bool> EditTour(TourEditWithoutListOptionModel requesModel);
 
     }
 }

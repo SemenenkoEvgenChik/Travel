@@ -104,8 +104,9 @@ namespace TravelAgency.BLL.Services
             return flightBLM;
         }
 
-        public async Task EditTour(TourEditWithoutListOptionModel requesModel)
+        public async Task<bool> EditTour(TourEditWithoutListOptionModel requesModel)
         {
+            bool response = false;
             var tour = await _db.TourRepository.GetByIdAsync(requesModel.IdTour);
             var flight = await _db.FlightRepository.GetByIdAsync(requesModel.IdFlight);
             flight.FromWhereId = requesModel.FromWhereId;
@@ -123,6 +124,9 @@ namespace TravelAgency.BLL.Services
             tour.TypeOfTourId = requesModel.TypeOfTourId;
             tour.HotelId = requesModel.HotelId;
             await _db.TourRepository.UpdateAsync(tour);
+
+            response = true;
+            return response;
         }
     }
 }
